@@ -3,21 +3,51 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+class NumberInput(BaseModel):
+    a: int
+    b: int
 
-class Item(BaseModel):
-    name: str
-    price: float 
-    is_offer: bool | None = None
+class CalculationResult(BaseModel):
+    result: int
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+class Calculator:
+    def __init__(self, n1: int, n2: int):
+        self.n1 = n1
+        self.n2 = n2
+    def add(self) -> int:
+        return self.n1 + self.n2
+    def subtract(self) -> int:
+        return self.n1 - self.n2
+    def multiply(self) -> int:
+        return self.n1 * self.n2
+    def division(self) -> float:
+        if self.n2 == 0:
+            return "Undefined"
+        else:
+            return self.n1 / self.n2
 
+# Endpoints
+# POST: A endpoint that...
+@app.post("/calculate/add", response_model=CalculationResult)
+def add_numbers(input_data: NumberInput):
+    calc = Calculator(input_data.a, input_data.b)
+    res = calc.add()
+    return CalculationResult(result=res)
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+@app.post("/calculate/subtract", response_model=CalculationResult)
+def subtract_numbers(input_data: NumberInput):
+    calc = Calculator(input_data.a, input_data.b)
+    res = calc.subtract()
+    return CalculationResult(result=res)
 
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.post("/calculate/multiply", response_model=CalculationResult)
+def multiply_numbers(input_data: NumberInput):
+    calc = Calculator(input_data.a, input_data.b)
+    res = calc.multiply()
+    return CalculationResult(result=res)
+
+@app.post("/calculate/division", response_model=CalculationResult)
+def divide_numbers(input_data: NumberInput):
+    calc = Calculator(input_data.a, input_data.b)
+    res = calc.division()
+    return CalculationResult(result=res)
