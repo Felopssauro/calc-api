@@ -8,7 +8,7 @@ class NumberInput(BaseModel):
     b: int
 
 class CalculationResult(BaseModel):
-    result: int
+    result: float
 
 class Calculator:
     def __init__(self, n1: int, n2: int):
@@ -22,31 +22,30 @@ class Calculator:
         return self.n1 * self.n2
     def division(self) -> float:
         if self.n2 == 0:
-            return "Undefined"
+            raise ValueError("Undefined")
         else:
             return self.n1 / self.n2
 
 # Endpoints
-# POST: A endpoint that...
-@app.post("/calculate/add", response_model=CalculationResult)
+@app.post("/calculator/add", response_model=CalculationResult)
 def add_numbers(input_data: NumberInput):
     calc = Calculator(input_data.a, input_data.b)
     res = calc.add()
     return CalculationResult(result=res)
 
-@app.post("/calculate/subtract", response_model=CalculationResult)
+@app.post("/calculator/subtract", response_model=CalculationResult)
 def subtract_numbers(input_data: NumberInput):
     calc = Calculator(input_data.a, input_data.b)
     res = calc.subtract()
     return CalculationResult(result=res)
 
-@app.post("/calculate/multiply", response_model=CalculationResult)
+@app.post("/calculator/multiply", response_model=CalculationResult)
 def multiply_numbers(input_data: NumberInput):
     calc = Calculator(input_data.a, input_data.b)
     res = calc.multiply()
     return CalculationResult(result=res)
 
-@app.post("/calculate/division", response_model=CalculationResult)
+@app.post("/calculator/division", response_model=CalculationResult)
 def divide_numbers(input_data: NumberInput):
     calc = Calculator(input_data.a, input_data.b)
     res = calc.division()
