@@ -19,25 +19,6 @@ htmlcov/
 # FastAPI / uvicorn
 .idea/
 
-# Flutter / Dart
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-**/build/
-
-# Android / iOS / desktop generated files
-app/android/local.properties
-app/ios/Flutter/Generated.xcconfig
-app/ios/Flutter/flutter_export_environment.sh
-app/macos/Flutter/GeneratedPluginRegistrant.swift
-app/linux/flutter/generated_plugin_registrant.cc
-app/linux/flutter/generated_plugin_registrant.h
-app/linux/flutter/generated_plugins.cmake
-app/windows/flutter/generated_plugin_registrant.cc
-app/windows/flutter/generated_plugin_registrant.h
-app/windows/flutter/generated_plugins.cmake
-
 # Misc
 .DS_Store
 Thumbs.db
