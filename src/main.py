@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -20,33 +20,33 @@ class Calculator:
         return self.n1 - self.n2
     def multiply(self) -> int:
         return self.n1 * self.n2
-    def division(self) -> float:
+    def divide(self) -> float:
         if self.n2 == 0:
-            raise ValueError("Undefined")
+            raise HTTPException(status_code=400, detail="Division by zero is not allowed")
         else:
             return self.n1 / self.n2
 
 # Endpoints
 @app.post("/calculator/add", response_model=CalculationResult)
 def add_numbers(input_data: NumberInput):
-    calc = Calculator(input_data.a, input_data.b)
-    res = calc.add()
-    return CalculationResult(result=res)
+    calculate = Calculator(input_data.a, input_data.b)
+    summation = calculate.add()
+    return CalculationResult(result=summation)
 
 @app.post("/calculator/subtract", response_model=CalculationResult)
 def subtract_numbers(input_data: NumberInput):
-    calc = Calculator(input_data.a, input_data.b)
-    res = calc.subtract()
-    return CalculationResult(result=res)
+    calculate = Calculator(input_data.a, input_data.b)
+    difference = calculate.subtract()
+    return CalculationResult(result=difference)
 
 @app.post("/calculator/multiply", response_model=CalculationResult)
 def multiply_numbers(input_data: NumberInput):
-    calc = Calculator(input_data.a, input_data.b)
-    res = calc.multiply()
-    return CalculationResult(result=res)
+    calculate = Calculator(input_data.a, input_data.b)
+    product = calculate.multiply()
+    return CalculationResult(result=product)
 
-@app.post("/calculator/division", response_model=CalculationResult)
+@app.post("/calculator/divide", response_model=CalculationResult)
 def divide_numbers(input_data: NumberInput):
-    calc = Calculator(input_data.a, input_data.b)
-    res = calc.division()
-    return CalculationResult(result=res)
+    calculate = Calculator(input_data.a, input_data.b)
+    quotient = calculate.divide()
+    return CalculationResult(result=quotient)
