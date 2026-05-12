@@ -1,7 +1,19 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 app = FastAPI()
+
+# Allow cross-origin requests (needed for Flutter Web). 
+# For development this permits any origin.
+# Restrict `allow_origins` in production to specific URLs.
+""" app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+) """
 
 class NumberInput(BaseModel):
     a: int
