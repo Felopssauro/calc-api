@@ -22,7 +22,7 @@ class Calculator:
         return self.n1 * self.n2
     def divide(self) -> float:
         if self.n2 == 0:
-            raise HTTPException(status_code=400, detail="Division by zero is not allowed")
+            raise HTTPException(status_code=400, detail="Undefined. You can't divide by zero.")
         else:
             return self.n1 / self.n2
 
