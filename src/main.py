@@ -7,13 +7,13 @@ app = FastAPI()
 # Allow cross-origin requests (needed for Flutter Web). 
 # For development this permits any origin.
 # Restrict `allow_origins` in production to specific URLs.
-""" app.add_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-) """
+)
 
 class NumberInput(BaseModel):
     a: int
@@ -39,25 +39,25 @@ class Calculator:
             return self.n1 / self.n2
 
 # Endpoints
-@app.post("/calculator/add", response_model=CalculationResult)
+@app.post("/add", response_model=CalculationResult)
 def add_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     summation = calculate.add()
     return CalculationResult(result=summation)
 
-@app.post("/calculator/subtract", response_model=CalculationResult)
+@app.post("/subtract", response_model=CalculationResult)
 def subtract_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     difference = calculate.subtract()
     return CalculationResult(result=difference)
 
-@app.post("/calculator/multiply", response_model=CalculationResult)
+@app.post("/multiply", response_model=CalculationResult)
 def multiply_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     product = calculate.multiply()
     return CalculationResult(result=product)
 
-@app.post("/calculator/divide", response_model=CalculationResult)
+@app.post("/divide", response_model=CalculationResult)
 def divide_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     quotient = calculate.divide()
