@@ -39,25 +39,25 @@ class Calculator:
             return self.n1 / self.n2
 
 # Endpoints
-@app.post("/add", response_model=CalculationResult)
+@app.post("/calculator/add", response_model=CalculationResult)
 def add_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     summation = calculate.add()
     return CalculationResult(result=summation)
 
-@app.post("/subtract", response_model=CalculationResult)
+@app.post("/calculator/asubtract", response_model=CalculationResult)
 def subtract_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     difference = calculate.subtract()
     return CalculationResult(result=difference)
 
-@app.post("/multiply", response_model=CalculationResult)
+@app.post("/calculator/multiply", response_model=CalculationResult)
 def multiply_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     product = calculate.multiply()
     return CalculationResult(result=product)
 
-@app.post("/divide", response_model=CalculationResult)
+@app.post("/calculator/divide", response_model=CalculationResult)
 def divide_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     quotient = calculate.divide()
