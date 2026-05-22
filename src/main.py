@@ -45,7 +45,7 @@ def add_numbers(input_data: NumberInput):
     summation = calculate.add()
     return CalculationResult(result=summation)
 
-@app.post("/calculator/asubtract", response_model=CalculationResult)
+@app.post("/calculator/subtract", response_model=CalculationResult)
 def subtract_numbers(input_data: NumberInput):
     calculate = Calculator(input_data.a, input_data.b)
     difference = calculate.subtract()
